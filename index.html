@@ -1,0 +1,318 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Forex Trader Dashboard</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    :root {
+    --bg-dark: #0e0f1a;
+    --surface-dark: #1a1c2c;
+    --surface-light: #2d2f44;
+    --text-light: #ffffff;
+    --text-muted: #aab4c4;
+    --primary: #00d4ff;
+    --accent: #ffb347;
+    --border-radius: 16px;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+
+    body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.7;
+    min-height: 100vh;
+    }
+
+    header {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #000;
+    padding: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    }
+
+    nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.4rem;
+    padding: 2rem;
+    background: var(--surface-dark);
+    box-shadow: var(--shadow);
+    }
+
+    nav button {
+    background: var(--bg-dark);
+    color: var(--primary);
+    font-weight: 600;
+    padding: 0.7rem 1.4rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 2px solid var(--primary);
+    transition: all 0.3s ease;
+    }
+
+    nav button:hover {
+    background: var(--primary);
+    color: #000;
+    transform: translateY(-2px);
+    }
+
+    .container {
+    width: 96%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--surface-dark);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    }
+
+    .section {
+    display: none;
+    }
+
+    .section.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    border-left: 5px solid var(--primary);
+    padding-left: 1rem;
+    }
+
+    label {
+    display: block;
+    margin-bottom: 1.4rem;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.05rem;
+    }
+
+    label input,
+    label textarea,
+    label select {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 1rem 1rem;
+    font-size: 1.05rem;
+    border: 1px solid var(--surface-light);
+    border-radius: var(--border-radius);
+    background: #23263a;
+    color: var(--text-light);
+    transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+    outline: none;
+    }
+
+    textarea {
+    min-height: 100px;
+    resize: vertical;
+    }
+
+    .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    }
+
+    .checkbox-group label {
+    flex: 1 1 200px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--surface-light);
+    border-radius: var(--border-radius);
+    background: #2e3147;
+    color: var(--text-light);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    }
+
+    .checkbox-group label:hover {
+    background: #3b3f5c;
+    transform: scale(1.02);
+    }
+
+    input[type="file"] {
+    background: #2e3147;
+    border: 1px dashed var(--accent);
+    padding: 1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    }
+
+    ul {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+    }
+
+    </style>
+    </head>
+    <body>
+    <header>
+    <h1>Forex Trader Dashboard</h1>
+    </header>
+    <nav>
+    <button onclick="showSection('journal')">Journaling</button>
+    <button onclick="showSection('checklist')">Pre-Trade Checklist</button>
+    <button onclick="showSection('analytics')">Performance Analysis</button>
+    <button onclick="showSection('psychology')">Psychology</button>
+    <button onclick="showSection('strategies')">Strategies</button>
+    </nav>
+
+    <div class="container">
+    <div id="journal" class="section active">
+        <h2>📘 Trade Overview</h2>
+        <label>Date <input type="date" placeholder="Date" /></label>
+        <label>Pair Traded <input type="text" placeholder="Pair Traded (e.g. XAU/USD)" /></label>
+        <label>Session <input type="text" placeholder="Session (e.g. New York Open)" /></label>
+        <label>Direction <input type="text" placeholder="Direction (Buy/Sell)" /></label>
+        <label>Lot Size <input type="text" placeholder="Lot Size" /></label>
+        <label>Account Balance <input type="text" placeholder="Account Balance" /></label>
+        <label>Risk (%) <input type="text" placeholder="Risk (%)" /></label>
+        <label>Stop Loss (pips) <input type="text" placeholder="Stop Loss (pips)" /></label>
+        <label>Take Profit (pips) <input type="text" placeholder="Take Profit (pips)" /></label>
+
+        <h2>📊 Trade Plan (Before Entry)</h2>
+        <label>Entry Timeframe <input type="text" placeholder="Entry Timeframe" /></label>
+        <label>Bias <input type="text" placeholder="Bias" /></label>
+        <label>Confluences <textarea placeholder="Confluences"></textarea></label>
+        <label>News Check <input type="text" placeholder="News Check" /></label>
+        <label>Market Structure <input type="text" placeholder="Market Structure" /></label>
+        <label>Entry Reason <textarea placeholder="Entry Reason"></textarea></label>
+        <label>Trigger Candle <input type="text" placeholder="Trigger Candle" /></label>
+
+        <h2>📈 Trade Management (Live)</h2>
+        <label>Execution Time <input type="text" placeholder="Execution Time" /></label>
+        <label>Stop Loss Placement <textarea placeholder="Stop Loss Placement"></textarea></label>
+        <label>Take Profit Target <textarea placeholder="Take Profit Target"></textarea></label>
+        <label>Partial TP <input type="text" placeholder="Partial TP" /></label>
+        <label>SL Moved to BE? <input type="text" placeholder="SL Moved to BE?" /></label>
+        <label>Psychological State <textarea placeholder="Psychological State"></textarea></label>
+
+        <h2>📉 Trade Outcome</h2>
+        <label>Result <input type="text" placeholder="Result (TP hit / SL hit / BE)" /></label>
+        <label>Pips Gained/Lost <input type="text" placeholder="Pips Gained/Lost" /></label>
+        <label>R Multiple <input type="text" placeholder="R Multiple" /></label>
+        <label>Profit/Loss <input type="text" placeholder="Profit/Loss" /></label>
+
+        <h2>🧠 Post-Trade Reflection</h2>
+        <label>Followed Strategy? <textarea placeholder="Did I follow my strategy?"></textarea></label>
+        <label>What went well? <textarea placeholder="What did I do well?"></textarea></label>
+        <label>Improvement <textarea placeholder="What could I improve?"></textarea></label>
+        <label>Emotion Review <textarea placeholder="Emotional state before/after?"></textarea></label>
+        <label>Retake this trade? <textarea placeholder="Would I take this trade again?"></textarea></label>
+        <label>Chart Screenshot <input type="file" accept="image/*" /></label>
+
+        <h2>📂 Weekly Review</h2>
+        <label>Total trades this week <input type="text" placeholder="Total trades this week" /></label>
+        <label>Win rate <input type="text" placeholder="Win rate" /></label>
+        <label>Average R:R <input type="text" placeholder="Average R:R" /></label>
+        <label>Best trade <textarea placeholder="Best trade of the week"></textarea></label>
+        <label>Worst trade <textarea placeholder="Worst trade and why"></textarea></label>
+        <label>Lessons <textarea placeholder="Lessons learned"></textarea></label>
+
+        <h2>🧰 Tools Pro Traders Use</h2>
+        <p><strong>Edgewonk / TraderSync / Notion:</strong> Digital journaling</p>
+        <p><strong>TradingView:</strong> Chart screenshots and notes</p>
+        <p><strong>Excel / Google Sheets:</strong> Custom stats and calculations</p>
+        <p><strong>MyFxBook / FX Blue:</strong> Broker-linked performance reports</p>
+
+        <h2>✅ Final Notes</h2>
+        <ul>
+        <li><strong>Systematic</strong> — organized into sections</li>
+        <li><strong>Detailed</strong> — before/during/after analysis</li>
+        <li><strong>Reflective</strong> — helps you improve psychology and execution</li>
+        <li><strong>Visual</strong> — includes charts, markups, and screenshots</li>
+        <li><strong>Honest</strong> — includes both wins and mistakes</li>
+        </ul>
+    </div>
+
+    <div id="checklist" class="section">
+        <h2>Pre-Trade Checklist</h2>
+        <div class="checkbox-group">
+        <label><input type="checkbox" /> Trend Confirmed</label>
+        <label><input type="checkbox" /> Key Level Present</label>
+        <label><input type="checkbox" /> News Checked</label>
+        <label><input type="checkbox" /> Risk/Reward Valid</label>
+        <label><input type="checkbox" /> Entry Candle Confirmed</label>
+        </div>
+    </div>
+
+    <div id="analytics" class="section">
+        <h2>Performance Analysis</h2>
+        <label>Total Trades <input type="text" placeholder="Total Trades" /></label>
+        <label>Win Rate (%) <input type="text" placeholder="Win Rate (%)" /></label>
+        <label>Average R:R <input type="text" placeholder="Average R:R" /></label>
+    </div>
+
+    <div id="psychology" class="section">
+        <h2>Psychology Log</h2>
+        <label>Feelings <textarea placeholder="How did you feel before/during/after the trade?"></textarea></label>
+        <label>Mental State
+        <select>
+            <option>Calm</option>
+            <option>Nervous</option>
+            <option>Excited</option>
+            <option>Overconfident</option>
+            <option>Disciplined</option>
+        </select>
+        </label>
+    </div>
+
+    <div id="strategies" class="section">
+        <h2>Trading Strategies</h2>
+        <label>Strategy Name <textarea placeholder="Strategy Name and Description"></textarea></label>
+        <label>When to Use <textarea placeholder="When to use it (e.g. London session, pullback)"></textarea></label>
+    </div>
+    </div>
+
+    <script>
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+    }
+    </script>
+    </body>
+    </html>
